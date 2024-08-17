@@ -1,11 +1,11 @@
-/**************************************************
+/**
  * Spell Check
  * A puzzle written by Zach Blick
  * for Adventures in Algorithms
  * At Menlo School in Atherton, CA
  *
  * Completed by: [YOUR NAME HERE]
- *************************************************/
+ * */
 
 public class SpellCheck {
 
