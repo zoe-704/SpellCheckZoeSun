@@ -12,7 +12,7 @@ import java.util.Arrays;
 
 public class SpellCheck {
 
-
+    // takes 3s 117ms
     public static int binarySearch (String word, String[] dictionary) {
         int low = 0, high = dictionary.length-1;
         while (low <= high) {
@@ -21,9 +21,9 @@ public class SpellCheck {
             if (wordDif == 0) {
                 return mid;
             } else if (wordDif < 0) {
-                low = mid - 1;
+                high = mid - 1;
             } else {
-                high = mid + 1;
+                low = mid + 1;
             }
         }
         return -1;
@@ -43,7 +43,6 @@ public class SpellCheck {
                 misspelled.add(word);
             }
         }
-        String[] x = new String[]{Arrays.toString(misspelled.toArray())};
-        return x;
+        return misspelled.toArray(new String[0]);
     }
 }
