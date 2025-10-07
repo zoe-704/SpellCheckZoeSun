@@ -14,7 +14,7 @@ class Node {
     Node[] next;
     public Node() {
         isWord = false;
-        next = new Node[27]; // a-z + '
+        next = new Node[256];
     }
     void setWord() {
         isWord = true;
@@ -27,16 +27,10 @@ class Trie {
         root = new Node();
     }
 
-    private int letterToIndex(char letter) {
-        if (letter == '\'') return 26;
-        if (letter >= 'a' && letter <= 'z') return letter - 'a';
-        return -1; // not valid
-    }
-
     void insert(String s) {
         Node cur = root;
         for (char letter : s.toCharArray()) {
-            int index = letterToIndex(letter);
+            int index = letter;
             if (cur.next[index] == null) cur.next[index] = new Node();
             cur = cur.next[index];
         }
@@ -45,7 +39,7 @@ class Trie {
     boolean lookup(String s) {
         Node cur = root;
         for (char letter : s.toCharArray()) {
-            int index = letterToIndex(letter);
+            int index = letter;
             if (cur.next[index] == null) return false;
             cur = cur.next[index];
         }
