@@ -8,6 +8,86 @@ import java.util.*;
  * Completed by: Zoe Sun
  * */
 
+class Node {
+    char data;
+    boolean isEndofString;
+    Node left, eq, right; // only point to 3 nodes for TST
+    public Node(char data) {
+        this.data = data;
+        this.isEndofString = false;
+        this.left = null;
+        this.eq = null;
+        this.right = null;
+    }
+    public static Node insert (Node root, String word) {
+        if (root == null) root = new Node(word.charAt(0));
+        if (word.charAt(0) < root.data) {
+            root.left = insert(root.left, word);
+        } else if (word.charAt(0) > root.data) {
+            root.right = insert(root.right, word);
+        } else {
+            if (word.length() > 1) {
+                root.eq = insert(root.eq, word.substring(1));
+            } else {
+                root.isEndofString = true;
+            }
+        }
+        return root;
+    }
+    boolean lookup(String word) {
+        Node cur = new Node(word.charAt(0));
+        for (char letter : word.toCharArray()) {
+            if ()
+        }
+    }
+}
+
+
+class Trie {
+    Node root;
+    public Trie () {
+        root = new Node();
+    }
+
+    void insert(String s) {
+        Node cur = root;
+        for (char letter : s.toCharArray()) {
+            int index = letter;
+            if (cur.next[index] == null) cur.next[index] = new Node();
+            cur = cur.next[index];
+        }
+        cur.setWord();
+    }
+    boolean lookup(String s) {
+        Node cur = root;
+        for (char letter : s.toCharArray()) {
+            int index = letter;
+            if (cur.next[index] == null) return false;
+            cur = cur.next[index];
+        }
+        return cur.isWord;
+    }
+}
+
+
+
+
+// tst implementation
+public class SpellCheck {
+    /**
+     * checkWords finds all words in text that are not present in dictionary
+     *
+     * @param text       The list of all words in the text.
+     * @param dictionary The list of all accepted words.
+     * @return String[] of all misspelled words in the order they appear in text. No duplicates.
+     */
+    // 560 ms, 564 ms, 523 ms with trie
+    public String[] checkWords(String[] text, String[] dictionary) {
+
+    }
+}
+
+/*
 // trie and node implementation
 class Node {
     boolean isWord;
@@ -54,8 +134,9 @@ public class SpellCheck {
      * @param text       The list of all words in the text.
      * @param dictionary The list of all accepted words.
      * @return String[] of all misspelled words in the order they appear in text. No duplicates.
-     */
+     **/
     // 560 ms, 564 ms, 523 ms with trie
+/*
     public String[] checkWords(String[] text, String[] dictionary) {
         // Initialize new trie and insert words into it
         Trie trie = new Trie();
@@ -73,6 +154,8 @@ public class SpellCheck {
         return misspelled.toArray(new String[0]);
     }
 }
+*/
+
 /*//approach using a linked hashet and hashset 483, 447, 436 ms
 public class SpellCheck {
 
