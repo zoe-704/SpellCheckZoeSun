@@ -9,10 +9,10 @@ import java.util.*;
  * */
 
 // #1: TST implementation
-// create Node class that contains insert and lookup method
+// Create Node class that contains insert and lookup method
 class Node {
-    char data; // letter assigned to each node
-    boolean isEndOfString; // end of valid word
+    char data; // Letter assigned to each node
+    boolean isEndOfString; // End of valid word
     Node left, eq, right; // TST only points to 3 child nodes
 
     // Node constructor
@@ -26,7 +26,7 @@ class Node {
     // Insert word into TST given root node
     public static Node insert (Node root, String word) {
         char c = word.charAt(0);
-        // Create node one for current letter
+        // Create node for current letter
         if (root == null) root = new Node(c);
         // Compare current character with root’s character
         if (c < root.data) { // Left for smaller chars
