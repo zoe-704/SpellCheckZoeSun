@@ -73,7 +73,7 @@ public class SpellCheck {
 
     // 560 ms, 564 ms, 523 ms with trie
     public String[] checkWords(String[] text, String[] dictionary) {
-        Node root = null; // Root node of TST
+        Node root = new Node('m'); // Root node of TST set to M (middle of alphabet)
         // Insert every word in dictionary into TST
         for (String word : dictionary) {
             root = Node.insert(root, word);
