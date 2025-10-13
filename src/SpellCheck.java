@@ -60,6 +60,31 @@ class Node {
             return lookup(root.eq, word.substring(1));
         }
     }
+    // Convert TST to a list of all stored words
+    public static List<String> toArray(Node root) {
+        List<String> result = new ArrayList<>();
+        compileWords(root, "", result);
+        return result;
+    }
+
+    // Recursively compile the words in the TST
+    private static void compileWords(Node node, String prefix, List<String> result) {
+        if (node == null) return;
+
+        // Traverse left subtree
+        compileWords(node.left, prefix, result);
+
+        // Process current node
+        String newPrefix = prefix + node.data;
+        if (node.isEndOfString) result.add(newPrefix);
+
+        // Traverse middle subtree
+        compileWords(node.eq, newPrefix, result);
+
+        // Traverse right subtree
+        compileWords(node.right, prefix, result);
+    }
+
 }
 
 public class SpellCheck {
@@ -73,21 +98,39 @@ public class SpellCheck {
 
     // 560 ms, 564 ms, 523 ms with trie
     public String[] checkWords(String[] text, String[] dictionary) {
-        Node root = new Node('m'); // Root node of TST set to M (middle of alphabet)
+        Node dictRoot = null; // Root node of TST
         // Insert every word in dictionary into TST
         for (String word : dictionary) {
-            root = Node.insert(root, word);
+            dictRoot = Node.insert(dictRoot, word);
         }
         // Initialize an ordered misspelled set and add words to it that are not in dictionary
         Set<String> misspelled = new LinkedHashSet<>();
         for (String word : text) {
-            if (!Node.lookup(root, word)) {
+            if (!Node.lookup(dictRoot, word)) {
                 misspelled.add(word);
             }
         }
         // Return misspelled set as an array
         return misspelled.toArray(new String[0]);
     }
+        /* SLOWER
+        // Initialize a misspelled TST and add words to it that are not in dictionary
+        Node misspelledRoot = null;
+        Set<String> seen = new LinkedHashSet<>(); // Track inserted misspelled words
+
+        for (String word : text) {
+            if (!Node.lookup(dictRoot, word) && !seen.contains(word)) {
+                misspelledRoot = Node.insert(misspelledRoot, word);
+                seen.add(word);
+            }
+        }
+        List<String> misspelled = Node.toArray(misspelledRoot);
+
+        // Return misspelled set as an array
+        return seen.toArray(new String[0]);
+
+    }*/
+
 }
 
 /*
